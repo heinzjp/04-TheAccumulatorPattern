@@ -172,7 +172,7 @@ def run_test_draw_circles_from_rectangle():
     # Test 3:
     rectangle = rg.Rectangle(rg.Point(350, 280), rg.Point(375, 330))
     rectangle.fill_color = 'yellow'
-    rectangle.outline_color = 'red'
+    rectangle.outline_color = 'brown'
     rectangle.outline_thickness = 5
     draw_circles_from_rectangle(6, 10, rectangle, window4)
 
@@ -327,7 +327,7 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
       :type window: rg.RoseWindow
       """
     # -------------------------------------------------------------------------
-    # TODO: 5. Implement and test this function.
+    # DONE: 5. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -343,12 +343,19 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
 
     rectangle1.attach_to(window)
     rectangle2.attach_to(window)
-    rec1_height = rectangle1.get_height()
-    rec1_width = rectangle1.get_width()
-    rec1_cent = rectangle1.get_center()
-    rec2_cent = rectangle2.get_center()
+    rec1h = rectangle1.get_height()
+    rec1w = rectangle1.get_width()
+    rec1 = rectangle1.get_center()
+    rec2 = rectangle2.get_center()
+    color1 = rectangle1.__getattribute__('outline_color')
+    color2 = rectangle2.__getattribute__('outline_color')
     for k in range(n):
-        line = rg.Line(rg.Point(rec1_cent.x-((rec1_height/2)*k), rec2_cent.y-((rec1_width/2)*k)), rec2_cent)
+        line = rg.Line(rg.Point(rec1.x-((rec1w/2)*k),rec1.y+((rec1h/2)*k)),rg.Point(rec2.x-((rec1w/2)*k),rec2.y+((rec1h/2)*k)))
+        if k % 2 == 0:
+            line.color = color1
+        else:
+            line.color = color2
+        line.thickness = 5
         line.attach_to(window)
     window.render()
 
